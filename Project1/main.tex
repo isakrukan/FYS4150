@@ -112,11 +112,122 @@ which means that
 \end{align}
 Here $C$ and $D$ are some constants which are determined by the boundary conditions in \eqref{eq:boundary_condition}. Concretely, \(u(0)=0\) leads to $D=1$ and then \(u(1)=0\) sets \(C=-(1-e^{-10})\). Hence,
 \begin{align}
-    u(x) = 1 - (1 - e^{-10x})x - e^{-10x}.
+    u(x) = 1 - (1 - e^{-10x})x - e^{-10x}.  \label{eq:u_x}
 \end{align}
 \section{Problem 2}
-Using 
-\includegraphics{Figs/problem2.pdf}
+Using \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem2.cpp}{problem2.cpp} we compute $u(x)$ numerically for $N=10^4$ points. The result is written to \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem2.txt}{problem2.txt} and Fig. \ref{fig:u_x} is made in \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem2.py}{problem2.py}.
+\begin{figure}[h!]
+    \centering
+    \includegraphics{Figs/problem2.pdf}
+    \caption{Eq. \eqref{eq:u_x} using $N=10^4$ points.}
+    \label{fig:u_x}
+\end{figure}
+
+\section{Problem 3}
+The second derivative of $u(x)$, appearing on the R.H. side of \eqref{eq:Poisson} may be written as
+\begin{align}
+    \frac{d^2}{dx^2}u(x) = \lim_{h\rightarrow 0} \frac{u(x+h) -2u(x) + u(x-h)}{h^2}.    \label{eq:second_order_derivative}
+\end{align}
+To approximate this limit numerically, let $h$ be small and $\vec{x}$ be an array of $n$ points equispaced from zero to one. Eq. \eqref{eq:second_order_derivative} can then be approximated up to order $\mathcal{O}(h^2)$:
+\begin{align}
+    \frac{d^2}{dx^2}u(x)\vert_{x_i} = \frac{u(x_{i+1}) - 2u(x_i) + u(x_{i-1})}{h^2} + \mathcal{O}(h^2).  \label{eq:discretized_version_second_derivative}
+\end{align}   
+Since, according to \eqref{eq:Poisson}, the second derivative of $u(x)$ equals $-f(x)$, we can write \eqref{eq:discretized_version_second_derivative} as  
+\begin{align}
+    -h^2f(x_i) = \frac{u(x_{i+1}) - 2u(x_i) + u(x_{i-1})}{h^2} + \mathcal{O}(h^2). \label{eq:Poisson_disc}
+\end{align}
+
+\section{Problem 4}
+Let $\vec{v} = (v_2,...,v_{n-2})$ be a vector whose $i$-th component is thought of as representing the numerical implementation (so ignoring the order $\mathcal{O}(h^2)$) of $u_{i+1}$, and let $\vec{g} = h^2(f(x_2),...,f(x_{n-2}))$. Eq. \eqref{eq:Poisson_disc} can then be written as 
+\begin{align}
+    -v_{i-1} + 2v_{i} - v_{i+1} = h^2f(x_i).    \label{eq:numerical_v}
+\end{align}
+If we let $A$ be the \(n-2\times n-2\)-matrix given by
+\begin{align}
+    A = \begin{pmatrix}
+        2 & -1 & 0 & \cdots & 0 \\
+        -1 & 2 & -1 & \ddots & \vdots \\
+        0 & -1 & 2 & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & -1 \\
+        0 & \cdots & 0 & -1 & 2
+    \end{pmatrix},
+\end{align}
+we can represent \eqref{eq:numerical_v} as 
+\begin{align}
+    A\vec{v} = \vec{g}. \label{eq:as_matrix_multiplication}
+\end{align}
+To see that this explicitly, multiply the matrix $A$ with $\vec{v}$, which gives $A\vec{v}$ componentwise as
+\begin{align}
+    (A\vec{v})_{i} &= -v_{i-1} + 2v_{i} - v_{i+1}.
+\end{align}
+
+
+
+\section{Problem 5}
+The vector $\vec{v}$ does not contain the boundary points corresponding to $x_{0}=0$ and $x_{N-1}=1$. Let the vector $\vec{v}^*$ be given by 
+\begin{align}
+    \vec{v}^* = (u(0), \vec{v}, u(1)).
+\end{align}
+Then, clearly, \(\vec{v}^*\) is a vector of length $n$ and when solving \eqref{eq:as_matrix_multiplication} we will obtain $\vec{v}$, which is \(\vec{v}^*\) excluding its first and last component.
+
+\section{Problem 6}
+Consider now $A$ as a general tridiagonal matrix with vectors $\vec{a}, \ \vec{b}$ and \(\vec{c}\) representing the subdiagonal, main diagonal and superdiagonal, respectively. When solving \eqref{eq:as_matrix_multiplication} we may then use a number of row operations on $A$, such that it turns into a matrix $\tilde{A}$ with all entries below the diagonal equal to zero. These row operations naturally alters the $\vec{\tilde{g}}$ on R.H. side of \eqref{eq:as_matrix_multiplication} into a vector $\tilde{g}$, at which point the solution to \eqref{eq:as_matrix_multiplication} can then be simply read of by multiplying out $\tilde{A}\vec{v} = \vec{\tilde{g}}$.
+
+Let $R_{i}$ denote the $i$-th row of \eqref{eq:as_matrix_multiplication}. In the following, when writing $\overset{aR_i-b R_j}{\rightarrow}$, we mean the row operation of subtracting $b$ times row \(j\) from \(a\) times row \(i\). When applying a row operation to the $i$-th row, we write \(\tilde{b}_{j}\) and \(\tilde{g}_j\) as the resulting new \(j\)-th component of the vector \(\vec{b}\) and \(\vec{g}\), respectively. We have:
+\begin{align}
+    &\left[\begin{array}{cccccc|c}
+        R_1: & b_1 & c_1 & 0 & \cdots & 0  & g_1\\
+        R_2: & a_{2} & b_2 & c_2 & \ddots & \vdots  & g_2\\
+        R_3: & 0 & a_{3} & b_3 & \ddots & 0  & g_3\\
+        \ & \vdots & \ddots & \ddots & \ddots & c_{n-3}  & \vdots\\
+        R_{N-2}: & 0 & \cdots & 0 & a_{n-3} & b_{n-2} & g_{n-2}
+    \end{array}\right]
+    \notag \\
+    \overset{R_2 - a_2/b_1R_1}{\longrightarrow} 
+    &\left[\begin{array}{cccccc|c}
+        R_1: & b_1 & c_1 & 0 & \cdots & 0  & g_1\\
+        R_2: & 0 & b_2-a_2\frac{c_1}{b_1} & c_2 & \ddots & \vdots  & g_2-g_1\frac{a_2}{b_1}\\
+        R_3: & 0 & a_{3} & b_3 & \ddots & 0  & g_3\\
+        \ & \vdots & \ddots & \ddots & \ddots & c_{n-3}  & \vdots\\
+        R_{N-2} & 0 & \cdots & 0 & a_{n-3} & b_{n-2} & g_{n-2}
+    \end{array}\right]
+    \notag \\
+    \overset{R_3 - a_3/\tilde{b}_2R_2}{\longrightarrow} 
+    &\left[\begin{array}{cccccc|c}
+        R_1: & b_1 & c_1 & 0 & \cdots & 0  & g_1\\
+        R_2: & 0 & \tilde{b}_2 & c_2 & \ddots & \vdots  & \tilde{g}_2\\
+        R_3: & 0 & 0 & b_3 - a_{3}\frac{c_2}{\tilde{b}_2} & \ddots & 0  & g_3 - g_2\frac{a_3}{\tilde{b}_1}\\
+        \ & \vdots & \ddots & \ddots & \ddots & c_{n-3}  & \vdots\\
+        R_{N-2} & 0 & \cdots & 0 & a_{n-3} & b_{n-2} & g_{n-2}
+    \end{array}\right]
+\end{align}
+Continuing in this way we obtain 
+\begin{subequations}
+\begin{align}
+    \tilde{b}_{j} = b_{j} - a_{j}\frac{c_{j-1}}{b_{j-1}}, \\ 
+    \tilde{g}_{j} = g_{j} - a_{j}\frac{c_{j-1}}{g_{j-1}}, 
+\end{align}
+\end{subequations}
+for \(j=2,..., n-2\) and with \(\tilde{b}_1 = b_1\) and \(\tilde{g}_1 = g_1\). After having performed these row operations, we are left with 
+\begin{align}
+    \tilde{A}\vec{v} &= \begin{pmatrix}
+        \tilde{b}_1 & c_1 & 0 & \cdots & 0 \\
+        0 & \tilde{b}_2 & c_2 & \ddots & \vdots  \\
+        0 & 0 & \tilde{b}_3 & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & c_{n-3} \\
+        0 & \cdots & 0 & 0 & \tilde{b}_{n-2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        v_1 \\ \vdots \\ \vdots \\ v_{n-2}
+    \end{pmatrix}
+    \notag \\
+    &= \begin{pmatrix}
+        \tilde{g}_1 \\ \vdots\\ \vdots \\ \tilde{g}_{n-2}
+    \end{pmatrix}
+\end{align}
+
+There are a total of \(n-3\) row operations needed (since \(\tilde{b}_1\) and \(\tilde{b}_2\)) 
+
 
 \onecolumngrid
 % \bibliographystyle{apalike}
