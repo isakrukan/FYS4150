@@ -24,7 +24,7 @@ std::vector<double> u(std::vector<double> x){
     int size = x.size();
     std::vector<double> u_vector(size);
     for(int i=0; i<size; i++){
-        u_vector[i] = 1 - (1 - std::exp(-10))*x[i] - exp(-10*x[i]);
+        u_vector[i] = 1 - (1 - std::exp(-10))*x[i] - std::exp(-10*x[i]);
     }
     return u_vector;
 }
