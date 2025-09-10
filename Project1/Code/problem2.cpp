@@ -29,16 +29,12 @@ std::vector<double> u(std::vector<double> x){
     return u_vector;
 }
 
-int write_u_to_file(std::string filename, int N, int n_decimals=15){
+int write_u_to_file(std::ofstream &ofile, const int N, const int n_decimals=15){
     // Creates vector of size "N" x of values from 0 to 1, computes u(x) and writes to "filename". 
     // Uses "n_decimals" number of decimal points
 
     std::vector<double> x = linspace(0,1,N);
     std::vector<double> u_vector = u(x);
-
-    // Creating an output file stream
-    std::ofstream ofile;
-    ofile.open(filename);
 
     // Writing to file
     ofile << "x, u, " << N << std::endl; // Header
@@ -48,16 +44,23 @@ int write_u_to_file(std::string filename, int N, int n_decimals=15){
         ofile << std::setprecision(n_decimals) << std::scientific << u_vector[i] << std::endl;
     }
 
-    // Close the output file
-    ofile.close();
-
     return 0;
 }
 
 int main(){
-    int N = 10000;
+    std::vector<int> ns = {10, 100, 1000, 10000, 100000, 1000000, 10000000};
     std::string filename = "problem2.txt";
-    write_u_to_file(filename, N);
 
-    std::cout << "2 x " << N << " data points written to " << filename << " complete." << std::endl;
+    // Creating an output file stream
+    std::ofstream ofile;
+    ofile.open(filename);
+
+    // Writing to file
+    for(int i=0; i<ns.size(); i++){
+        std::cout << "2 x " << ns[i] << " data points written to " << filename << " complete." << std::endl;
+        write_u_to_file(ofile, ns[i]);
+    }
+
+    // Close the output file
+    ofile.close();
 }
