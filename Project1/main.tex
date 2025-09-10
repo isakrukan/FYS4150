@@ -76,7 +76,9 @@
 
 \begin{document}
 
-\title{FYS4150 - Project 1}  % self-explanatory
+\title{FYS4150 - Project 1\\[0.5em]
+  \small \href{https://github.com/isakrukan/FYS4150/tree/main/Project1}{\texttt{github.com/isakrukan/FYS4150/Project1}}
+}
 \author{Isak Cecil Onsager Rukan} % self-explanatory
 \date{\today}                             % self-explanatory
 \noaffiliation                            % ignore this, but keep it.
@@ -94,10 +96,6 @@ together with the following boundary conditions
     u(0)=0, \quad u(1)=0. \label{eq:boundary_condition}
 \end{align}
 \section{Problem 1}
-% We will show that an analytic solution to \eqref{eq:Poisson} with \(f(x)\) given in \eqref{eq:f_x} is:
-% \begin{align}
-%     u(x) = 1 - (1-e^{-10})x - e^{-10x}.
-% \end{align} 
 Let $v(x)=d/dx u(x)$. Integrating \eqref{eq:Poisson} leads to 
 \begin{align}
     -v(x) &= 100\int dxe^{-10x}
@@ -265,32 +263,107 @@ gives
 \end{align}
 and so on, which leads to  
 \begin{align}
-    v_{i}   &= \frac{\tilde{g}_{i}-c_{i}v_{i+1}}{\tilde{b}_{i}}, \quad i=1, ..., n-1.   \label{eq:v_i}
+    v_{i}   &= \frac{\tilde{g}_{i}-c_{i}v_{i+1}}{\tilde{b}_{i}}, \quad i = n-1, ..., 1.   \label{eq:v_i}
 \end{align}
 \end{widetext}
 
-Both \eqref{eq:tilde_b} and \eqref{eq:tilde_g} requires \(3\) floating-point operations (FLOPs) each, and hence implementing \eqref{eq:tilde_b_ntilde_g} takes a total of \(6*(n-1)\) FLOPs. Eq. \eqref{eq:last_v} takes one FLOP, while \eqref{eq:v_i} takes \(3*(n-1)\) FLOPs. Hence, the complete algorithm for obtaining \(\vec{v}\) requires \({6*(n-1) + 3*(n-1) + 1= 9n-8=\mathcal{O}(n)}\) FLOPs.
+Eq. \eqref{eq:tilde_b} and \eqref{eq:tilde_g} requires \(3\) and \(7\) floating-point operations (FLOPs) each, and hence implementing \eqref{eq:tilde_b_ntilde_g} takes a total of \((3+5)*(n-1)\) FLOPs. (Here, we have counted computing \(\tilde{g}_{j}\) as 2 FLOPs; counting \(h^2\) as a single FLOP (since this can be done beforehand) and evaluating \(f\) as a single FLOP (though that is technically wrong but dependent on the realization of \(f\)).) Eq. \eqref{eq:last_v} takes one FLOP, while \eqref{eq:v_i} takes \(3*(n-1)\) FLOPs. Hence, the complete algorithm for obtaining \(\vec{v}\) requires \({8*(n-1) + 3*(n-1) + 1= 11n-10=\mathcal{O}(n)}\) FLOPs.
 
-\section{Problem 7}
+\section{Problem 7} \label{sec:problem7}
 \begin{figure}[h!]
     \includegraphics{Figs/problem7.pdf}
     \caption{Numerically computed solutions to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}), using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green) and \(n_{\text{steps}}=98\) (red). The analytic solution in \eqref{eq:u_x} is shown in blue.}
     \label{fig:v_x}
 \end{figure}
-In \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.cpp}{problem7.cpp} the algorithm described in section \ref{sec:problem6}, which we refer to as the ``general algorithm'', is implemented and solves the Poisson equation using \(n_{\text{steps}}\in {10, 100, 1000, 100000}\), writing to the file \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.txt}{problem7.txt}. Using the computed values for \(\vec{v}\), Fig. \ref{fig:v_x} is created in \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.py}{problem7.py}.
+In \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.cpp}{problem7.cpp} the algorithm described in section \ref{sec:problem6}, which we refer to as the ``general algorithm'', is implemented and solves the Poisson equation using \({n_{\text{steps}}\in {10, 100, 1000, 100000}}\), writing to the file \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.txt}{problem7.txt}. Using the computed values for \(\vec{v}\), Fig. \ref{fig:v_x} is created in \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.py}{problem7.py}.
 
+Fig. \ref{fig:v_x} shows that the numerically computed solution to the Poisson equation with \(f(x)\) given in \eqref{eq:f_x} quite quickly, seemingly, converges to the analytic solution. Already at \(n_{\text{steps}=100}\) there is no visual difference between the numerical and analytic solution.
 
 \section{Problem 8}
+We will now consider the absolute error, which is defined componentwise as
+\begin{align}
+    (\epsilon_{\text{abs}})_i = \log_{10}|\vec{u}_i-\vec{v}_i|, \label{eq:abs_error}
+\end{align}
+and the relative error:
+\begin{align}
+    (\epsilon_{\text{rel}})_i = \log_{10}\big\vert\frac{\vec{u}_i-\vec{v}_i}{\vec{u}_i}\big\vert.   \label{eq:rel_error}
+\end{align}
+Fig. \ref{fig:abs_error} shows the absolute error \eqref{eq:abs_error} and fig. \ref{fig:rel_error} shows the relative error \eqref{eq:rel_error}, both computed in \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem8.py}{problem8.py}, using the values computed in section \ref{sec:problem7}.
 \begin{figure}[h!]
     \includegraphics{Figs/problem8_abs_error.pdf}
     \caption{The absolute error between the numerical approximation to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}) using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green), \(n_{\text{steps}}=98\) (red) and \(n_{\text{steps}}=998\) (blue). }
-    \label{fig:v_x}
+    \label{fig:abs_error}
 \end{figure}
+
+
+
+In both figures, the boundary points \(u(0)=u(1)=0\) are excluded. The absolute error in Fig. \ref{fig:abs_error} is mostly constant and decreasing with increasing \(n_{\text{steps}}\), though converges to zero at the \(x=0\) and \(x=1\). This should be expected for any descent numerical approximation, as the analytic solution vanishes at these end points.
+
+The relative error in Fig. \ref{fig:rel_error} is almost perfectly constant for all \(x\in(0,1)\). This supplements the behavior of the absolute error (which is also mostly constant), but also shows that the divergence of the numerical solution from the analytic solution remains constant even when the analytic solution goes to zero at the endpoints.
 \begin{figure}[h!]
     \includegraphics{Figs/problem8_rel_error.pdf}
     \caption{The relative error between the numerical approximation to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}) using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green), \(n_{\text{steps}}=98\) (red) and \(n_{\text{steps}}=998\) (blue). }
-    \label{fig:v_x}
+    \label{fig:rel_error}
 \end{figure}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{3.3cm}|p{3.3cm}|p{1cm}| }
+ \hline
+ \multicolumn{3}{|c|}{Maximum Absolute and Relative Errors} \\
+ \hline
+ Absolute error (\(\log_{10}\)) & Relative error (\(\log_{10}\)) & \(n_{\text{steps}}\) \\
+ \hline
+ \(-1.19\) & \(-1.01\) & \(10^{1}\) \\
+ \(-3.24\) & \(-3.07\) & \(10^{2}\) \\
+ \(-5.25\) & \(-5.08\) & \(10^{3}\) \\
+ \(-7.25\) & \(-7.08\) & \(10^{4}\) \\
+ \(-9.04\) & \(-8.84\) & \(10^{5}\) \\
+ \(-6.35\) & \(-6.08\) & \(10^{6}\) \\
+ \(-6.20\) & \(-5.53\) & \(10^{7}\) \\
+ \hline
+\end{tabular}
+\label{table:errors}
+\caption{The maximum absolute and relative errors for \(n_{\text{steps}} = 10^{1}, 10^{2}, ..., 10^{7}\).}
+\end{table}
+Table \ref{table:errors} shows the maximum absolute and relative errors for \(n_{\text{steps}}= 10^{1}, 10^{2}, ..., 10^{7}\). The table indicates that there is a turning point at \(n_{\text{steps}}\approx 10^{5}\) where the behavior, which prior to \(n_{\text{steps}}\approx 10^{5}\) is that the errors are decreasing for increasing \(n_{\text{steps}}\), starts to increase. 
+
+\section{Problem 9} \label{sec:problem9}
+The general algorithm from section \ref{sec:problem6} can be specialized since we know that \(\vec{b}_i=2\) and \(\vec{c}_i = \vec{a}_i=-1\). Concretely, \eqref{eq:tilde_b_ntilde_g} can be written as 
+\begin{subequations}    \label{eq:tilde_b_ntilde_g_specialized}
+\begin{align}
+    \tilde{b}_{i} = 2 - \frac{1}{b_{i-1}}, \quad i=2,..., n,   \label{eq:tilde_b_specialized}\\ 
+    \tilde{g}_{i} = h^2f(x_{i+1}) +\frac{g_{i-1}}{b_{i-1}}, \quad i=2,..., n,   \label{eq:tilde_g_specialized}
+\end{align}
+\end{subequations}
+whilst the forward substitution process which led to \eqref{eq:v_i}, can be written as 
+\begin{align}
+    v_i = \frac{\tilde{g}_{i} + v_{i+1}}{\tilde{b}_{i}}, \quad i = n-1, ..., 1, \label{eq:v_i_specialized}
+\end{align}
+with \(v_{n} = \tilde{g}_n/\tilde{b}_{n}\). Implementing \eqref{eq:tilde_b_ntilde_g_specialized} requires \({(2+4)*(n-1)}\) FLOPs, while \eqref{eq:v_i_specialized} requires \(3*(n-1)\) (again, counting evaluating \(f\) as a single FLOP), and setting \(v_{n}=\tilde{g}_n/\tilde{b}_n\) requires one. Hence, the total number of FLOPs for the specialized algorithm is \({(2+4)*(n-1) + 3*(n-1) + 1= 9n - 8} \). 
+
+
+\section{Problem 10}
+The special algorithm in section \ref{sec:problem9} requires fewer FLOPs than that of the general algorithm in section \ref{sec:problem6}. Table \ref{table:timings} shows the averaged time duration (over \(100\) runs) of running the general/special algorithm.
+\begin{table}[h!]
+    \centering
+\begin{tabular}{ |p{3.3cm}|p{3.3cm}|p{1cm}| }
+ \hline
+ \multicolumn{3}{|c|}{Averaged Time Duration of Special/General Algorithm} \\
+ \hline
+ Special Algorithm [s] & General Algorithm [s] & \(n_{\text{steps}}\)\\
+ \hline
+ \(1.06 \cdot 10^{-4}\) & \(3.00 \cdot 10^{-5}\) & \(10^{1}\) \\
+ \(2.12 \cdot 10^{-4}\) & \(1.18 \cdot 10^{-4}\) & \(10^{2}\) \\
+ \(1.64 \cdot 10^{-3}\) & \(1.00 \cdot 10^{-3}\) & \(10^{3}\) \\
+ \(2.18 \cdot 10^{-2}\) & \(1.37 \cdot 10^{-2}\) & \(10^{4}\) \\
+ \(2.04 \cdot 10^{-1}\) & \(1.26 \cdot 10^{-1}\) & \(10^{5}\) \\
+ \(1.94 \cdot 10^{0}\)  & \(1.17 \cdot 10^{0}\)  & \(10^{6}\)
+\end{tabular}
+\label{table:timings}
+\caption{The averaged time duration over \(100\) runs of the special (from section \ref{sec:problem6}) versus the general (from section \ref{sec:problem9}) algorithm. }
+\end{table}
 
 \onecolumngrid
 % \bibliographystyle{apalike}

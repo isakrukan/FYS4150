@@ -48,7 +48,7 @@ int write_u_to_file(std::ofstream &ofile, const int N, const int n_decimals=15){
 }
 
 int main(){
-    std::vector<int> ns = {10, 100, 1000, 100000};
+    std::vector<int> ns = {10, 100, 1000, 10000, 100000, 1000000, 10000000};
     std::string filename = "problem2.txt";
 
     // Creating an output file stream

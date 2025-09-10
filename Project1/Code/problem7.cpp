@@ -9,8 +9,8 @@ void change_b_and_g(std::vector<double> &b, std::vector<double> &g, const std::v
     int n = b.size();
     
     for(int j=1; j<n; j++){
-        b[j] = b[j] - a[j] * c[j-1]/b[j-1];
-        g[j] = g[j] - a[j] * g[j-1]/b[j-1];
+        b[j] = b[j] - (a[j-1] / b[j-1]) * c[j-1];
+        g[j] = g[j] - a[j-1] * g[j-1]/b[j-1];
     }
 
 }
@@ -57,7 +57,7 @@ void write_to_file(std::ofstream &ofile, const std::vector<double> &x, const std
 }
 
 int main(){
-    std::vector<int> ns = {10-2, 100-2, 1000-2, 100000-2};
+    std::vector<int> ns = {10-2, 100-2, 1000-2, 10000-2, 100000-2, 1000000-2, 10000000-2};
     int N = ns.size();
 
     double start = 0; double end = 1;
@@ -81,22 +81,21 @@ int main(){
         double v0 = 0; double vN = 0; // Boundary conditions
 
         // Filling vectors with values:
-        double step_size = (end-start)/(ns[i]+1);
-        double h = (end-start) / (ns[i]-1);
+        double h = (end-start) / (x.size()-1);
         x[0] = start;
         for(int j=0; j<ns[i]-1; j++){
 
-            x[j+1] = start + (j+1)*step_size;
+            x[j+1] = start + (j+1)*h;
             a[j] = -1; b[j] = 2; c[j] = -1;
-            g[j] = std::pow(h, 2)*f_func(x[j+1]);
+            g[j] = (h*h)*f_func(x[j+1]);
         }
-        x[ns[i]] = start + (ns[i])*step_size;
+        x[ns[i]] = start + (ns[i])*h;
         b[ns[i]-1] = 2;
         
         // Boundary values are special
         g[0] += v0;
-        x[ns[i]+1] = start + (ns[i]+1)*step_size;
-        g[ns[i]-1] = std::pow(h, 2)*f_func(x[ns[i]]) + vN;
+        x[ns[i]+1] = start + (ns[i]+1)*h;
+        g[g.size()-1] = (h*h)*f_func(x[x.size()-1]) + vN;
 
         // Applying General Algorithm:
         std::vector<double> v = general_algorithm(a, b, c, g);
