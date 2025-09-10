@@ -5,26 +5,33 @@ plt.style.use(['science', 'nature', 'grid', 'vibrant'])
 # plt.style.use(['science', 'ieee', 'grid', 'vibrant'])
 
 
-def get_x_and_u(filename):
+def get_xs_and_us(filename):
     with open(filename, "r") as file:
-        header = file.readline()
-        N = int(header.split(",")[-1])
 
-        x = np.zeros(N)
-        u = np.zeros(N)
+        xs = []; vs = []
 
-        i = 0
+        reading_contents = False
         for line in file:
             tmp = line.split(",")
-            x[i] = float(tmp[0]); u[i] = float(tmp[1])
-            i += 1
-    return x, u
+            if tmp[0] == "x": # New batch of values
+                reading_contents = True
+                N = int(tmp[-1])
+                xs.append(np.zeros(N)); vs.append(np.zeros(N))
+                i = 0
+                continue 
+
+            if reading_contents:
+                xs[-1][i] = float(tmp[0]); vs[-1][i] = float(tmp[1])
+                i += 1
+
+    return xs, vs
 
 
 if __name__ == "__main__":
     filename = "problem2.txt"
-    x,u  = get_x_and_u(filename)
-    plt.plot(x, u)
+    xs, us  = get_xs_and_us(filename)
+
+    plt.plot(xs[2], us[2]) # n_steps = 98
     plt.xlabel("x")
     plt.ylabel("u")
     plt.savefig("../Figs/problem2.pdf")

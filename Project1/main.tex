@@ -177,7 +177,7 @@ The vector $\vec{v}$ does not contain the boundary points corresponding to $x_{0
 \end{align}
 Then, clearly, \(\vec{v}^*\) is a vector of length $n$ and when solving \eqref{eq:as_matrix_multiplication} we will obtain $\vec{v}$, which is \(\vec{v}^*\) excluding its first and last component.
 
-\section{Problem 6}
+\section{Problem 6} \label{sec:problem6}
 Consider now $A$ as a general tridiagonal matrix with vectors $\vec{a}, \ \vec{b}$ and \(\vec{c}\) representing the subdiagonal, main diagonal and superdiagonal, respectively. When solving \eqref{eq:as_matrix_multiplication} we may then use a number of row operations on $A$, such that it turns into a matrix $\tilde{A}$ with all entries below the diagonal equal to zero. These row operations naturally alters the $\vec{\tilde{g}}$ on R.H. side of \eqref{eq:as_matrix_multiplication} into a vector $\tilde{g}$, at which point the solution to \eqref{eq:as_matrix_multiplication} can then be simply read of by multiplying out $\tilde{A}\vec{v} = \vec{\tilde{g}}$.
 
 Let $R_{i}$ denote the $i$-th row of \eqref{eq:as_matrix_multiplication}. In the following, when writing $\overset{aR_i-b R_j}{\rightarrow}$, we mean the row operation of subtracting $b$ times row \(j\) from \(a\) times row \(i\). When applying a row operation to the $i$-th row, we write \(\tilde{b}_{j}\) and \(\tilde{g}_j\) as the resulting new \(j\)-th component of the vector \(\vec{b}\) and \(\vec{g}\), respectively. We have:
@@ -272,7 +272,25 @@ and so on, which leads to
 Both \eqref{eq:tilde_b} and \eqref{eq:tilde_g} requires \(3\) floating-point operations (FLOPs) each, and hence implementing \eqref{eq:tilde_b_ntilde_g} takes a total of \(6*(n-1)\) FLOPs. Eq. \eqref{eq:last_v} takes one FLOP, while \eqref{eq:v_i} takes \(3*(n-1)\) FLOPs. Hence, the complete algorithm for obtaining \(\vec{v}\) requires \({6*(n-1) + 3*(n-1) + 1= 9n-8=\mathcal{O}(n)}\) FLOPs.
 
 \section{Problem 7}
+\begin{figure}[h!]
+    \includegraphics{Figs/problem7.pdf}
+    \caption{Numerically computed solutions to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}), using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green) and \(n_{\text{steps}}=98\) (red). The analytic solution in \eqref{eq:u_x} is shown in blue.}
+    \label{fig:v_x}
+\end{figure}
+In \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.cpp}{problem7.cpp} the algorithm described in section \ref{sec:problem6}, which we refer to as the ``general algorithm'', is implemented and solves the Poisson equation using \(n_{\text{steps}}\in {10, 100, 1000, 100000}\), writing to the file \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.txt}{problem7.txt}. Using the computed values for \(\vec{v}\), Fig. \ref{fig:v_x} is created in \href{https://github.com/isakrukan/FYS4150/blob/main/Project1/Code/problem7.py}{problem7.py}.
 
+
+\section{Problem 8}
+\begin{figure}[h!]
+    \includegraphics{Figs/problem8_abs_error.pdf}
+    \caption{The absolute error between the numerical approximation to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}) using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green), \(n_{\text{steps}}=98\) (red) and \(n_{\text{steps}}=998\) (blue). }
+    \label{fig:v_x}
+\end{figure}
+\begin{figure}[h!]
+    \includegraphics{Figs/problem8_rel_error.pdf}
+    \caption{The relative error between the numerical approximation to the Poisson equation \eqref{eq:Poisson} (with source term given in \eqref{eq:f_x}) using the general algorithm described in section \ref{sec:problem6} for \(n_{\text{steps}}=8\) (green), \(n_{\text{steps}}=98\) (red) and \(n_{\text{steps}}=998\) (blue). }
+    \label{fig:v_x}
+\end{figure}
 
 \onecolumngrid
 % \bibliographystyle{apalike}

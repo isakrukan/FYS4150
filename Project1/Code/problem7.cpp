@@ -57,7 +57,7 @@ void write_to_file(std::ofstream &ofile, const std::vector<double> &x, const std
 }
 
 int main(){
-    std::vector<int> ns = {10, 100, 1000, 100000};
+    std::vector<int> ns = {10-2, 100-2, 1000-2, 100000-2};
     int N = ns.size();
 
     double start = 0; double end = 1;
