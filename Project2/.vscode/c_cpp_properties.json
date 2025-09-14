@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/include",   // For header files
+                "${workspaceFolder}/Code/include",   // For FYS4150 which has structure ProjectX/Code/include
                 "C:/Program Files/Armadillo/armadillo-15.0.2/armadillo-15.0.2/include"
             ],
             "defines": [
