@@ -1,0 +1,107 @@
+% USEFUL LINKS:
+% -------------
+%
+% - UiO LaTeX guides:          https://www.mn.uio.no/ifi/tjenester/it/hjelp/latex/
+% - Mathematics:               https://en.wikibooks.org/wiki/LaTeX/Mathematics
+% - Physics:                   https://ctan.uib.no/macros/latex/contrib/physics/physics.pdf
+% - Basics of Tikz:            https://en.wikibooks.org/wiki/LaTeX/PGF/Tikz
+% - All the colors!            https://en.wikibooks.org/wiki/LaTeX/Colors
+% - How to make tables:        https://en.wikibooks.org/wiki/LaTeX/Tables
+% - Code listing styles:       https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+% - \includegraphics           https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics
+% - Learn more about figures:  https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+% - Automagic bibliography:    https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management  (this one is kinda difficult the first time)
+%
+%                              (This document is of class "revtex4-1", the REVTeX Guide explains how the class works)
+%   REVTeX Guide:              http://www.physics.csbsju.edu/370/papers/Journal_Style_Manuals/auguide4-1.pdf
+%
+%
+% COMPILING THE .pdf FILE IN THE LINUX TERMINAL
+% ---------------------------------------------
+%
+% [terminal]$ pdflatex report_example.tex
+%
+% Run the command twice, always.
+%
+% When using references, footnotes, etc. you should run the following chain of commands:
+%
+% [terminal]$ pdflatex report_example.tex
+% [terminal]$ bibtex report_example
+% [terminal]$ pdflatex report_example.tex
+% [terminal]$ pdflatex report_example.tex
+%
+% This series of commands can of course be gathered into a single-line command:
+% [terminal]$ pdflatex report_example.tex && bibtex report_example.aux && pdflatex report_example.tex && pdflatex report_example.tex
+%
+% ----------------------------------------------------
+
+
+
+% \documentclass[english,notitlepage,reprint,nofootinbib]{revtex4-2}  % defines the basic parameters of the document
+\documentclass[english,notitlepage,reprint,nofootinbib]{revtex4-2}  % defines the basic parameters of the document
+% If you want a single-column, remove "reprint"
+
+% Allows special characters (including æøå)
+\usepackage[utf8]{inputenc}
+% \usepackage[english]{babel}
+
+% Note that you may need to download some of these packages manually, it depends on your setup.
+% It may be usefult to download TeXMaker, because it includes a large library of the most common packages.
+
+\usepackage{physics,amssymb}  % mathematical symbols (physics imports amsmath)
+\include{amsmath}
+\usepackage{graphicx}         % include graphics such as plots
+\usepackage{xcolor}           % set colors
+\usepackage{hyperref}         % automagic cross-referencing
+\usepackage{listings}         % display code
+\usepackage{subfigure}        % imports a lot of cool and useful figure commands
+% \usepackage{float}
+%\usepackage[section]{placeins}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usetikzlibrary{quantikz}
+% defines the color of hyperref objects
+% Blending two colors:  blue!80!black  =  80% blue and 20% black
+\hypersetup{ % this is just my personal choice, feel free to change things
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}}
+
+
+% ===========================================
+
+
+\begin{document}
+
+\title{FYS4150 - Project 2\\[0.5em]
+  \small \href{https://github.com/isakrukan/FYS4150/tree/main/Project2}{\texttt{github.com/isakrukan/FYS4150/Project2}}
+}
+\author{Isak Cecil Onsager Rukan and Magnus Axelsen} % self-explanatory
+\date{\today}                             % self-explanatory
+\noaffiliation                            % ignore this, but keep it.
+\maketitle
+
+\section{Problem 1}
+Consider a time-dependent horizontal beam of length \(L\) and \(u(x)\) the displacement of the beam at position \(x\in[0,L]\). A force is applied at \(x=L\) directed towards \(x=0\). The beam is fastened, and so \(u(0)=u(L)=0\), but is allowed to rotate: \(u'(x)\neq 0\).
+
+This situation can be described by the second-order differential equation
+\begin{align}
+    \gamma \frac{d^2u(x)}{dx^2} = -Fu(x),
+\end{align}
+where \(\gamma\) is some constant. Introducing \(\hat{x}=x/L\) means that \(d\hat{x}^2 = dx^2/L^2\), and thus 
+\begin{align}
+    \frac{d^2u(\hat{x})}{d\hat{x}^2} 
+    % = -\frac{L^2}{\gamma}Fu(\hat{x})
+    = -\lambda u(\hat{x}),
+\end{align}
+where we have defined \(\lambda = FL^2/\gamma\).
+\onecolumngrid
+% \bibliographystyle{apalike}
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+
+\end{document}
