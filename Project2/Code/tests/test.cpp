@@ -1,5 +1,7 @@
 #include "utils.hpp"
-#include "triDag.hpp" 
+#include "triDag.hpp"
+#include "jacobi_eigensolver.hpp"
+#include "utils.hpp"
 #include <cassert>
 
 int test_TriDag(){
@@ -50,10 +52,66 @@ int test_max_offdiag_symmetric(){
     return 0;
 }
 
+int test_jacobi()
+{
+    // Initialize test matrix:
+    int N = 6;
+    double h = 1.0 / (N + 1);
+    double d = 2 / (h * h);
+    double a = -1 / (h * h);
+    arma::mat A = create_tridiagonal(N, a, d, a);
+
+    // Compute eigenvectors and eigenvalues analytically and numerically:
+    arma::vec expected_vals;
+    arma::mat expected_vecs;
+    analytic_solution(expected_vals, expected_vecs, a, d, N);
+
+    arma::mat computed_vecs;
+    arma::vec computed_vals;
+
+    int maxiter = 100;
+    int iterations;
+    bool converged;
+
+    jacobi_eigensolver(A, 1e-8, computed_vals, computed_vecs, maxiter, iterations, converged);
+
+    // To compare eigenvalues/vectors, sort by eigenvalue:
+    arma::uvec sort_idx;
+
+    sort_idx = arma::sort_index(expected_vals);
+    expected_vals = expected_vals.elem(sort_idx);
+    expected_vecs = expected_vecs.cols(sort_idx);
+
+    sort_idx = arma::sort_index(computed_vals);
+    computed_vals = computed_vals.elem(sort_idx);
+    computed_vecs = computed_vecs.cols(sort_idx);
+
+    // Check equality.
+    double tol = 1e-10;
+    bool passed = true;
+
+    if (not arma::approx_equal(expected_vals, computed_vals, "absdiff", tol))
+    {
+        passed = false;
+    }
+
+    for (int i = 0; i < N; i++)
+    {
+        // Check equality, up to a sign difference
+        // (assumes eigenvectors are normalized)
+        bool equal = arma::approx_equal(expected_vecs.col(i), computed_vecs.col(i), "absdiff", tol);
+        bool mirrored = arma::approx_equal(expected_vecs.col(i), -computed_vecs.col(i), "absdiff", tol);
+        
+        assert(equal or mirrored);
+    }
+    return 0;
+}
+
 int main(){
     
     test_TriDag();
     test_max_offdiag_symmetric();
+    test_jacobi();
 
     // To compile: 
     /*

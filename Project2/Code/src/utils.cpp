@@ -1,5 +1,14 @@
 #include "utils.hpp"
 
+arma::mat create_tridiagonal(int n, double a, double d, double e)
+{
+    arma::mat A = arma::zeros(n, n);
+    A.diag(1).fill(e);
+    A.diag().fill(d);
+    A.diag(-1).fill(a);
+
+    return A;
+}
 
 double max_offdiag_symmetric(const arma::mat &A, int &k, int &l){
     int N = A.n_rows;
