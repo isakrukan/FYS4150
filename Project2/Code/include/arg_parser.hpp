@@ -13,7 +13,7 @@ struct Args
     bool run_tests = false;
     bool run_problem_5 = false;
     bool run_problem_6 = false;
-    double tol = 1e-8;
+    double tol = 1e-14;
     int n_steps = 10;
     int N_max = 100;
     int maxiter = 10000;
