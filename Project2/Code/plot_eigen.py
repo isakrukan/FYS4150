@@ -13,7 +13,11 @@ for i, n_steps in enumerate([10, 100]):
     eig_vecs = data[2:, :]
 
     N = eig_vecs.shape[0]
-    x = np.linspace(0, 1, N)
+
+    h = 1 / (N + 1)
+    x_0 = h
+    x_N = 1 - h
+    x = np.linspace(x_0, x_N, N)
 
     indices = np.argsort(eig_vals)
 
