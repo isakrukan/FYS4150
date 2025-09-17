@@ -22,9 +22,9 @@ link:
 clean:
 	rm -f *.o
 
-run:
-	./$(BUILD)/main
+test:
+	./$(BUILD)/test
 
 build: outfolder compile link clean
 
-all: build run
+all: build test
