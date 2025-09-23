@@ -98,6 +98,49 @@ where \(\gamma\) is some constant. Introducing \(\hat{x}=x/L\) means that \(d\ha
     = -\lambda u(\hat{x}),
 \end{align}
 where we have defined \(\lambda = FL^2/\gamma\).
+
+\section{Problem 4}
+\subsection*{a)}
+The Jacobi algorithm is implemented in \texttt{src/jacobi\_eigensolver.cpp}.
+The program is broken down into a function \texttt{jacobi\_rotate()} performing one single Jacobi rotation, and a function \texttt{jacobi\_eigensolver()} repeatedly calling \texttt{jacobi\_rotate()} until the matrix is diagonal within some tolerance. 
+
+\subsection*{b)}
+A test function \texttt{test\_jacobi()} is implemented in \texttt{tests/test.cpp}.
+The function constructs a $6\times6$ tridiagonal matrix and compares the eigenvalues and eigenvectors computed by the Jacobi algorithm to the analytic solutions.
+
+
+\section{Problem 5}
+\subsection*{a)}
+We apply the Jacobi algorithm for different matrix sizes \(N\), and count the number of transformations required for the algorithm to converge.
+Assuming the the number of required iterations roughly follows a power law \(O(N^k)\), one can estimate the exponent \(k\) by linear regression on a log-log scale.
+The results are shown in figure \ref{fig:iterations}, and we find that \(k\approx 2.06\).
+\newline
+\newline
+\subsection*{b)}
+Whereas a tridiagonal matrix starts with \(O(N)\) off-diagonal elements, the corresponding number for a dense matrix will be \(O(N^2)\).
+Given that the tridiagonal case scales roughly as \(O(N^2)\), one may therefore expect that the additional factor of \(N\) in the number of off-diagonal elements leads to an additional factor of \(N\) in the number of required transformations.
+That is, one expects the dense case to scale as \(O(N^3)\).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{Code/output/iterations.pdf}
+    \caption{Number of transformations required for the Jacobi algorithm to converge for different matrix sizes \(N\).}
+    \label{fig:iterations}
+\end{figure}
+
+\section{Problem 6}
+The three lowest eigenmodes of the beam, for different numbers of discretization steps, are shown in figure \ref{fig:eigenvectors}. 
+The analytic solutions are also included for comparison.
+Notably, the numerical solutions are quite accurate even when the number of discretization steps is relatively small.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{Code/output/eigenvectors.pdf}
+    \caption{The three lowest eigenmodes of the beam, for different numbers of discretization steps.
+    Numerical solutions are given by the solid lines, with corresponding analytic solutions given by the dashed lines.}
+    \label{fig:eigenvectors}
+\end{figure}
+
+
 \onecolumngrid
 % \bibliographystyle{apalike}
 \bibliographystyle{unsrt}

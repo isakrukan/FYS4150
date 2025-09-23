@@ -22,7 +22,6 @@ iter_fit = np.exp(intercept) * N**slope
 plt.figure(figsize=(8, 6))
 plt.plot(N, iterations, "k", marker='o', label='Data Points')
 plt.plot(N, iter_fit, "--r", label=f'$y = {np.exp(intercept):.2f}\ N^' + r'{' + f'{slope:.2f}' + r'}$')
-plt.plot(N, N**3, ":b", label=r'$N^3$')
 plt.xlim(0, max(N))
 plt.ylim(0, max(iterations))
 
