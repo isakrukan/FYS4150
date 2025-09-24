@@ -13,7 +13,7 @@ void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
 
     double tau = (a_ll - a_kk) / (2 * a_kl);
 
-    if (tau > 0)
+    if (tau > 0)    // Smallest tau value will give faster convergence
     {
         t = 1.0 / (tau + std::sqrt(1 + tau * tau));
     }
@@ -58,8 +58,29 @@ void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
     }
 }
 
-void jacobi_eigensolver(const arma::mat &A, double eps, arma::vec &eigenvalues, arma::mat &eigenvectors, const int maxiter, int &iterations, bool &converged)
-{
+void jacobi_eigensolver(
+    const arma::mat &A, 
+    double eps, 
+    arma::vec 
+    &eigenvalues, 
+    arma::mat &eigenvectors, 
+    const int maxiter, 
+    int &iterations, 
+    bool &converged)
+{   
+    /**
+     * @brief Implementation of Jacobi's rotation method for eigenpairs.
+     *
+     * Solves \f$A \vec{x} = \lambda \vec{x}\f$ by zeroing off-diagonal elements via Givens/Jacobi rotations.
+     *
+     * @param A            Symmetric input matrix.
+     * @param eps          Tolerance for off-diagonal magnitude after rotations.
+     * @param[out] eigenvalues   Output: eigenvalues.
+     * @param[out] eigenvectors  Output: eigenvectors (columns).
+     * @param maxiter      Maximum number of iterations allowed.
+     * @param[out] iterations     Output: number of iterations performed.
+     * @param[out] converged      Output: true if convergence within @p eps before @p maxiter.
+     */
 
     iterations = 0;
 

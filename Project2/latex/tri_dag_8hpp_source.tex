@@ -1,0 +1,31 @@
+\doxysection{tri\+Dag.\+hpp}
+\hypertarget{tri_dag_8hpp_source}{}\label{tri_dag_8hpp_source}\index{Code/include/triDag.hpp@{Code/include/triDag.hpp}}
+\mbox{\hyperlink{tri_dag_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <armadillo>}\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tri_dag_a1e4333599eb1f3eb2922f9a321318871}{TriDag}}\{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{double}\ a\_fill;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{double}\ d\_fill;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ N;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_matrix();\ \ \textcolor{comment}{//\ Creates\ tridiagonal\ matrix}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ arma::mat\ \mbox{\hyperlink{class_tri_dag_adf977dbd56bacc42487daacdcdc390d7}{A}};\ }
+\DoxyCodeLine{00031\ \ \ \ \ arma::vec\ \mbox{\hyperlink{class_tri_dag_a3f6b23b014eb9db8d5696cc004ddfe0b}{eigenvalues}};}
+\DoxyCodeLine{00032\ \ \ \ \ arma::mat\ \mbox{\hyperlink{class_tri_dag_ae839b2baeab63bc7ce24384efa94f1d6}{eigenvectors}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_tri_dag_a1e4333599eb1f3eb2922f9a321318871}{TriDag}}(\textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_tri_dag_ab03516cfb767709c0744b3dfdf6bd25b}{compute\_eigenvalues}}();\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_tri_dag_a29e888af94d1a425dc7ed31a4ac9140f}{print}}(\textcolor{keywordtype}{int}\ max=25);\ \ \ \ }
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group___stand_alone_functions_ga351707829a33a87d8529b8bc09b0712f}{analytic\_solution}}(arma::vec\ \&eigenvalues,\ arma::mat\ \&eigenvectors,\ \textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{int}\ N);}
+
+\end{DoxyCode}
