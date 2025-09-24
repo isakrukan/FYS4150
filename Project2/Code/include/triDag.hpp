@@ -12,7 +12,7 @@
  *  0 & \cdots & 0 & b & a
  * \end{pmatrix},
  * \f]
- * where \f(b=c=-1/h^2\f) and \f(a=2/h^2\f).
+ * where \f$b=c=-1/h^2\f$ and \f$a=2/h^2\f$.
  * @param A Armadillo matrix.
  * @param eigenvalues Armadillo vector for the eigenvalues of the matrix A.
  * @param eigenvectors Armadillo vector for the eigenvectors of the matrix A.
@@ -58,8 +58,8 @@ public:
  * @{
 */
 /**
- * @brief Gives the analytic solution for the eigenvalues and eigenvectors of \f(A\vec{v} = \lambda \vec{v}\f), 
- * where \f(A\f) is a tridiagonal matrix(a,d,a).
+ * @brief Gives the analytic solution for the eigenvalues and eigenvectors of \f$A\vec{v} = \lambda \vec{v}\f$, 
+ * where \f$A\f$ is a tridiagonal matrix(a,d,a).
  * 
  * @param eigenvalues Armadillo vector for eigenvalues.
  * @param eigenvectors Armadillo vector for eigenvectors.
