@@ -8,6 +8,9 @@
  * @defgroup Tests Tests
  * @brief Various tests of our code.
  */
+/**
+ * @brief Tests the implementation of the tridiagonal matrix in @ref triDag.
+ */
 int test_TriDag(){
     
     double eps = 1e-14; // Error tollerance
@@ -37,6 +40,10 @@ int test_TriDag(){
     return 0;
 }
 
+/**
+ * @brief Tests that the function @ref utils::max_offdiag_symmetric correctly computes the maximum (in absolute value) element of a 
+ * symmetric matrix and updates a given pair of row and column indicies.
+ */
 int test_max_offdiag_symmetric(){
     int N = 4; double eps = 1e-15;
     arma::mat A(N, N, arma::fill::zeros);
@@ -56,6 +63,11 @@ int test_max_offdiag_symmetric(){
     return 0;
 }
 
+/**
+ * @brief Tests the implementation of Jacobi's iteration method in @ref jacobi_eigensolver.
+ * 
+ * @return int 
+ */
 int test_jacobi()
 {
     // Initialize test matrix:
@@ -112,18 +124,7 @@ int test_jacobi()
 }
 
 int main(){
-    
     test_TriDag();
     test_max_offdiag_symmetric();
     test_jacobi();
-
-    // To compile: 
-    /*
-    g++ tests/test.cpp src/triDag.cpp src/utils.cpp `
-    -I include `
-    -I C:/vcpkg/installed/x64-mingw-dynamic/include `
-    -L C:/vcpkg/installed/x64-mingw-dynamic/lib `
-    -o test `
-    -larmadillo
-    */ 
 }

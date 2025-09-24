@@ -1,32 +1,32 @@
 # FYS4150 project 2
 
-HEI ISAK!
-HEI MAGNUS!
+Implementing Jacobi's rotation method.
 
-See docs/doc.pdf for a (way too) detailed description of the code structure of this project. To generate a new doc-file, navigate do docs and run
+## Description
+See [FYS3150/project2](https://anderkve.github.io/FYS3150/book/projects/project2.html).
+
+## Code Structure and Explanation 
+We have made an overview of the code structure and content in [doc](https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf). This is presumably a way too detailed description for this project, and the code in this project is perhaps best understood by simply reading the comments in the explicit code. (See [include](https://github.com/isakrukan/FYS4150/tree/main/Project2/Code/include), [plot_eigen.py](https://github.com/isakrukan/FYS4150/blob/main/Project2/Code/plot_eigen.py) and [plot_iter.py](https://github.com/isakrukan/FYS4150/blob/main/Project2/Code/plot_iter.py).) 
+
+The code overview in  [doc](https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf) is created using [doxygen](https://www.doxygen.nl/), and we have made use of artificial intelligence (ChatGPT) when learning how to use this tool. To generate a new doc-file, navigate do docs and run
 ```
 make all
 ```
 
-# Changes
-
-## Makefile
-Added a makefile. 
-
-The project can be built using
+### Executables/Makefile
+The project can be built by navigating to the Code folder and running 
 ```
 make all
 ```
-The executables (`main`, `test`) end up in the `build` folder.
-This also runs the tests immediately.
+The Makefile builds two executables, `main` and `test`, which are placed in the `build` folder. After building, all object files are deleted and all tests are executed automatically. The Makefile does differentiate between Windows and Mac/Linux, in particular, on Windows (NB!) it assumes Armadillo is installed via vcpkg in a specific location.
+
+## Problem 2-3
+A more detailed description is provided in [project2](https://github.com/isakrukan/FYS4150/blob/main/Project2/main.pdf). These problems are implemented as the default tests ran when executing Makefile. 
 
 ## Problem 5-6
-Made code for project 5-6 (`main.cpp`)
-
 Uses an argument parser to change parameters (`arg_parser.cpp`) 
 
-(Might be unnecessarily complicated)
-### The possible arguments are:
+### Available Parser Arguments for main.exe:
 ```
 --outfile <filename> : Specify output file name (default: build/outfile.csv)
 --test               : Run tests
