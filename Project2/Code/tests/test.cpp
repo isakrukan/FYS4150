@@ -39,7 +39,7 @@ int test_max_offdiag_symmetric(){
 
     double x_1 = -0.7; double x_2 = 0.5;
     double diag = 1.;
-    A(2,1) = -x_1; A(1,2) = -x_1;
+    A(2,1) = x_1; A(1,2) = x_1;
     A(3,1) = x_2; A(1,3) = x_2;
     A(0,0) = diag; A(1,1) = diag; A(2,2) = diag; A(3,3) = diag;
 
