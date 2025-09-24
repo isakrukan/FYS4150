@@ -8,7 +8,7 @@ See [FYS3150/project2](https://anderkve.github.io/FYS3150/book/projects/project2
 ## Code Structure and Explanation 
 We have made an overview of the code structure and content in [doc](https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf). This is presumably a way too detailed description for this project, and the code in this project is perhaps best understood by simply reading the comments in the explicit code. (See [include](https://github.com/isakrukan/FYS4150/tree/main/Project2/Code/include), [plot_eigen.py](https://github.com/isakrukan/FYS4150/blob/main/Project2/Code/plot_eigen.py) and [plot_iter.py](https://github.com/isakrukan/FYS4150/blob/main/Project2/Code/plot_iter.py).) 
 
-The code overview in  [doc](https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf) is created using [doxygen](https://www.doxygen.nl/), and we have made use of artificial intelligence (ChatGPT) when learning how to use this tool. To generate a new doc-file, navigate do docs and run
+The code overview in  [doc](https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf) is created using [doxygen](https://www.doxygen.nl/), and we have made use of artificial intelligence (ChatGPT) when learning how to use this tool. To generate a new doc-file, navigate to docs and run
 ```
 make all
 ```
