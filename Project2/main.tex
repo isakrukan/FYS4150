@@ -139,7 +139,7 @@ That is, one expects the dense case to scale as \(O(N^3)\).
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\textwidth]{Code/output/iterations.pdf}
+    \includegraphics{Code/output/iterations.pdf}
     \caption{Number of transformations required for the Jacobi algorithm to converge for different matrix sizes \(N\).}
     \label{fig:iterations}
 \end{figure}
@@ -150,11 +150,15 @@ The analytic solutions are also included for comparison.
 Notably, the numerical solutions are quite accurate even when the number of discretization steps is relatively small.
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\textwidth]{Code/output/eigenvectors.pdf}
+    \includegraphics{Code/output/eigenvectors.pdf}
     \caption{The three lowest eigenmodes of the beam, for different numbers of discretization steps.
     Numerical solutions are given by the solid lines, with corresponding analytic solutions given by the dashed lines.}
     \label{fig:eigenvectors}
 \end{figure}
+
+\section{Code Implementation}
+Details of the code implementation can be found in \href{https://github.com/isakrukan/FYS4150/blob/main/Project2/docs/doc.pdf}{doc.pdf.}
+
 
 
 \onecolumngrid

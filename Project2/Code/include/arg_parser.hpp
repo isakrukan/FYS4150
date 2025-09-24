@@ -9,22 +9,19 @@
  */
 struct Args
 {
-    std::string outfile = "build/outfile.csv";
-    bool run_tests = false;
-    bool run_problem_5 = false;
-    bool run_problem_6 = false;
-    double tol = 1e-14;
-    int n_steps = 10;
-    int N_max = 100;
-    int maxiter = 10000;
+    std::string outfile = "build/outfile.csv";  ///< Where and what to store outfile, associated to given problem (5 or 6).
+    bool run_tests = false;                     ///< If true, runs the tests defined in "tests/".
+    bool run_problem_5 = false;                 ///< If true, runs problem 5.
+    bool run_problem_6 = false;                 ///< If true, runs problem 6.
+    double tol = 1e-14;                         ///< Tolerance when running Jacobi's rotation method.
+    int n_steps = 10;                           ///< Number of steps when running Jacobi's rotation method.
+    int N_max = 100;                            ///< Number of different sizes for the matrix A in Jacobi's rotation method (problem 5).
+    int maxiter = 10000;                        ///< Maximum number of iterations when running Jacobi's method.
 };
 
-/** @addtogroup StandAloneFunctions
- * @{
- */
 
 /**
- * @brief Function for parsing command-line arguments.
+ * @brief Method for parsing command-line arguments.
  * @param argc Number of command-line arguments.
  * @param argv Array of command-line argument strings.
  * @return Args struct containing the parsed values.
@@ -32,5 +29,3 @@ struct Args
 Args parse_args(int argc, char *argv[]);
 
 #endif
-
-/** @} */
