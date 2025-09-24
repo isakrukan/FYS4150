@@ -4,8 +4,12 @@
 #include <armadillo>
 #include "utils.hpp"
 
+/** @addtogroup StandAloneFunctions
+ * @{
+ */
+
 /**
- * Performs a single Jacobi rotation.
+ * @brief Performs a single Jacobi rotation.
  *
  * @param A The symmetric matrix to be diagonalized.
  * @param R The matrix of eigenvectors.
@@ -15,7 +19,7 @@
 void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l);
 
 /**
- * Computes the eigenvalues and eigenvectors of a symmetric matrix using the Jacobi method.
+ * @brief Computes the eigenvalues and eigenvectors of a symmetric matrix using Jacobi's rotation method.
  *
  * @param A The symmetric matrix to be diagonalized.
  * @param eps The convergence tolerance for the off-diagonal elements.
@@ -28,3 +32,5 @@ void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l);
 void jacobi_eigensolver(const arma::mat &A, double eps, arma::vec &eigenvalues, arma::mat &eigenvectors, const int maxiter, int &iterations, bool &converged);
 
 #endif
+
+/** @} */

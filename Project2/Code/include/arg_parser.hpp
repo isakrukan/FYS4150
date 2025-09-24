@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * Struct to hold command-line arguments
+ * @brief Struct to hold command-line arguments.
  */
 struct Args
 {
@@ -19,12 +19,18 @@ struct Args
     int maxiter = 10000;
 };
 
+/** @addtogroup StandAloneFunctions
+ * @{
+ */
+
 /**
- * \brief Function for parsing command-line arguments
- * @param argc Number of command-line arguments
- * @param argv Array of command-line argument strings
- * @return Args struct containing the parsed values
+ * @brief Function for parsing command-line arguments.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return Args struct containing the parsed values.
  */
 Args parse_args(int argc, char *argv[]);
 
 #endif
+
+/** @} */
