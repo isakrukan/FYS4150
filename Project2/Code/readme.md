@@ -1,7 +1,7 @@
 # FYS4150 project 2
 
 HEI ISAK!
-
+HEI MAGNUS!
 
 # Changes
 
