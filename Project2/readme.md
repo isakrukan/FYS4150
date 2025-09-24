@@ -3,6 +3,8 @@
 HEI ISAK!
 HEI MAGNUS!
 
+See docs/doc.pdf for a (way too) detailed description of the code structure of this project.
+
 # Changes
 
 ## Makefile
