@@ -4,6 +4,10 @@
 #include "utils.hpp"
 #include <cassert>
 
+/**
+ * @defgroup Tests Tests
+ * @brief Various tests of our code.
+ */
 int test_TriDag(){
     
     double eps = 1e-14; // Error tollerance
