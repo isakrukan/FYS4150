@@ -3,7 +3,10 @@
 HEI ISAK!
 HEI MAGNUS!
 
-See docs/doc.pdf for a (way too) detailed description of the code structure of this project.
+See docs/doc.pdf for a (way too) detailed description of the code structure of this project. To generate a new doc-file, navigate do docs and run
+```
+make all
+```
 
 # Changes
 
