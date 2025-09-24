@@ -16,7 +16,7 @@ compile:
 	g++ -c main.cpp $(INCL) -o main.o
 
 link:
-	g++ main.o $(SRC)  -larmadillo -o $(BUILD)/main
+	g++ main.o $(SRC)  -larmadillo -o $(BUILD)/main	
 	g++ test.o $(SRC) -larmadillo -o $(BUILD)/test
 
 clean:

@@ -99,6 +99,22 @@ where \(\gamma\) is some constant. Introducing \(\hat{x}=x/L\) means that \(d\ha
 \end{align}
 where we have defined \(\lambda = FL^2/\gamma\).
 
+\section{Problem 2}
+In \texttt{src/triDag.cpp} a tridiagonal matrix is implemented as a class that provides a method \texttt{compute\_eigenvalues} which computes the eigenvalues and eigenvectors of the matrix. In \texttt{tests/test.cpp}, we run \texttt{test\_TriDag}, which tests that the correct eigenvalues and eigenvectors are computed for a tridiagonal matrix of size \(N=6\).
+
+\section{Problem 3}
+In \texttt{src/utils.cpp} we have created a function called \texttt{max\_offdiag\_symmetric}, which takes in a matrix \(A\) and two integers, \(k\) and \(l\). This function assumes that \(A\) is a symmetric matrix, and returns the greatest off-diagonal element of \(A\) (in absolute value) and updates \(k\) and \(l\) by reference to be the row and column indices of this element, respectively. We test that this is implemented correctly using 
+\begin{align}
+    A = \begin{pmatrix}
+        1 & 0 & 0 & 0.5 \\ 
+        0 & 1 & -0.7 & 0 \\ 
+        0 & -0.7 & 1 & 0 \\ 
+        0.5 & 0 & 0 & 1,
+    \end{pmatrix}
+\end{align} 
+for which \texttt{max\_offdiag\_symmetric} should return \(-0.7\) and set \((k,l)=(2,1)\).
+
+
 \section{Problem 4}
 \subsection*{a)}
 The Jacobi algorithm is implemented in \texttt{src/jacobi\_eigensolver.cpp}.

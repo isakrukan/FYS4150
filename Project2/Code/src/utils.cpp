@@ -21,14 +21,16 @@ double max_offdiag_symmetric(const arma::mat &A, int &k, int &l){
     }
 
     double max = 0;
+    double value = 0;
     for(int i=1; i<N; i++){
         for(int j=0; j<i; j++){
             if(std::abs(A(i,j)) > max){ // Comparing to current maximum
                 max = std::abs(A(i,j));
+                value = A(i,j);
                 k = i; l = j;
             }
         }
     }
 
-    return max;
+    return value;
 }

@@ -37,16 +37,16 @@ int test_max_offdiag_symmetric(){
     int N = 4; double eps = 1e-15;
     arma::mat A(N, N, arma::fill::zeros);
 
-    double x_1 = 0.7; double x_2 = 0.5;
+    double x_1 = -0.7; double x_2 = 0.5;
     double diag = 1.;
     A(2,1) = -x_1; A(1,2) = -x_1;
     A(3,1) = x_2; A(1,3) = x_2;
     A(0,0) = diag; A(1,1) = diag; A(2,2) = diag; A(3,3) = diag;
 
     int k; int l;
-    double max = max_offdiag_symmetric(A, k, l);
+    double value = max_offdiag_symmetric(A, k, l);
 
-    assert(std::abs(max-x_1) < eps);
+    assert(std::abs(value-x_1) < eps);
     assert(k == 2); assert(l == 1);
 
     return 0;
