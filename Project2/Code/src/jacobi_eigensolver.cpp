@@ -75,8 +75,8 @@ void jacobi_eigensolver(
 
     int k, l;
     double max_offdiag = max_offdiag_symmetric(A_m, k, l);
-
-    while (max_offdiag > eps and iterations < maxiter)
+    
+    while (std::abs(max_offdiag) > eps and iterations < maxiter)
     {
         jacobi_rotate(A_m, R_m, k, l);
         max_offdiag = max_offdiag_symmetric(A_m, k, l);

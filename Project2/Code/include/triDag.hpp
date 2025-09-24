@@ -1,3 +1,5 @@
+#ifndef TRI_DAG
+#define TRI_DAG
 #include <armadillo> 
 
 
@@ -69,3 +71,5 @@ public:
  */
 void analytic_solution(arma::vec &eigenvalues, arma::mat &eigenvectors, double a, double d, int N);
 /** @} */
+
+#endif

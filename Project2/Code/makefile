@@ -1,5 +1,5 @@
-SRC 		:= utils.o jacobi_eigensolver.o arg_parser.o triDag.o
-TESTS 		:= tests.o
+SRC 		:= utils.o jacobi_eigensolver.o arg_parser.o triDag.o problems.o
+TESTS 		:= utils.o jacobi_eigensolver.o triDag.o
 BUILD 		:= build
 
 # Distinguishing between mac/linux and windows:
@@ -40,11 +40,12 @@ compile:
 	@$(call compile_func, src/triDag.cpp, triDag.o)
 	@$(call compile_func, src/jacobi_eigensolver.cpp, jacobi_eigensolver.o)
 	@$(call compile_func, src/arg_parser.cpp, arg_parser.o)
+	@$(call compile_func, src/problems.cpp, problems.o)
 	@$(call compile_func, main.cpp, main.o)
 
 link:
+	g++ test.o $(TESTS) $(LIB) -larmadillo -o $(BUILD)/test
 	g++ main.o $(SRC) $(LIB) -larmadillo -o $(BUILD)/main	
-	g++ test.o $(SRC) $(LIB) -larmadillo -o $(BUILD)/test
 
 clean:
 	-$(DELETE) *.o
